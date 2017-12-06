@@ -27,7 +27,7 @@ class ArticlesController < ApplicationController
     else
       # render plain: @article.errors.inspect
       #<ActiveModel::Errors:0x0055cce7687b30 @base=#<Article id: nil, title: "", text: "", created_at: nil, updated_at: nil>, @messages={:title=>["can't be blank", "is too short (minimum is 3 characters)"], :text=>["can't be blank", "is too short (minimum is 3 characters)"]}, @details={:title=>[{:error=>:blank}, {:error=>:too_short, :count=>3}], :text=>[{:error=>:blank}, {:error=>:too_short, :count=>3}]}>
-      render 'new'
+      render 'new' # call directly the page new. redirect_to recall the http endpoint articles#new. With render the @article var is correctly passed to the view 'new'.If I have used redirect_to here a new call to articles#new is done.
     end
   end
 
@@ -44,9 +44,9 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article.find(params[:id])
+    @article = Article.find(params[:id])
     @article.destroy
-    render 'index'
+    redirect_to articles_path
   end
 
   private
