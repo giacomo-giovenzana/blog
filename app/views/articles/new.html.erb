@@ -1,0 +1,25 @@
+<h1>Create Article</h1>
+<% if @article.errors.any? %>
+  <div id='error_explanation'>
+    <ul>
+      <% @article.errors.full_messages.each do |message| %>
+        <li style="color: red;"><%= message %></li>
+      <% end %>
+    <ul>
+  </div>
+<% end %>
+<%= form_with scope: :article, local: true, url: articles_path do |form| %>
+  <p>
+    <%= form.label :title, "Title" %><br>
+    <%= form.text_field :title %>
+  </p>
+  <p>
+    <%= form.label :text, "Text" %><br>
+    <%= form.text_area :text %>
+  </p>
+  <p>
+    <%= form.submit "Create" %>
+  </p>
+<% end %>
+<br>
+<%= link_to 'Index', articles_path %>
